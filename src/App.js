@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // pages
@@ -17,18 +17,36 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 const App = () => {
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+
   useEffect(() => {
     Aos.init({ once: true });
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        setShowScrollToTop(true);
+      } else {
+        return setShowScrollToTop(false);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("scroll", () => {});
+    };
+  }, [window.scrollY]);
   return (
     <>
-      <button
-        type="button"
-        className="absolute bottom-0 right-0 z-50 w-10 h-10 animate-bounce bg-primary text-white "
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        <ArrowLongUpIcon className="h-6 mx-auto" color="white" />
-      </button>
+      {showScrollToTop && (
+        <button
+          type="button"
+          className="fixed bottom-10 right-10 rounded-full z-50 w-10 h-10 animate-bounce bg-primary text-white "
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <ArrowLongUpIcon className="h-6 mx-auto" color="white" />
+        </button>
+      )}
       <BrowserRouter>
         {/* top to scroll btn */}
         <Header />
