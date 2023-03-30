@@ -2,6 +2,7 @@ import React from "react";
 import TitleSection from "../components/TitleSection";
 import Lottie from "react-lottie";
 import PageNotFound from "../assets/animations/page-not-found.json";
+import { Link } from "react-router-dom";
 
 const Error404 = () => {
   const defaultOptions = {
@@ -33,12 +34,14 @@ const Error404 = () => {
           We’re sorry, the page you have looked for does not exist in our
           website! <br /> Maybe go to our home page or try to use a search?
         </p>
-        <button
-          type="button"
-          className="bg-primary text-white text-center w-40  h-12 rounded-3xl font-bold"
-        >
-          Go To Home
-        </button>
+        <Link to="/">
+          <button
+            type="button"
+            className="bg-primary text-white text-center w-40  h-12 rounded-3xl font-bold"
+          >
+            Go To Home
+          </button>
+        </Link>
       </div>
     </div>
   );
